@@ -35,29 +35,16 @@
 			</div>
 			<input class="edit" value="<%- title %>">
 		</script>
-		<script type="text/template" id="stats-template">
-			<span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
-			<ul id="filters">
-				<li>
-					<a class="selected" href="#/">All</a>
-				</li>
-				<li>
-					<a href="#/active">Active</a>
-				</li>
-				<li>
-					<a href="#/completed">Completed</a>
-				</li>
-			</ul>
-			<% if (completed) { %>
-			<button id="clear-completed">Clear completed (<%= completed %>)</button>
-			<% } %>
 
-			<script type="text/template" id="opening-template">
-				<div class="view">
-					<label><%- venue %></label>
-					<button class="destroy"></button>
-				</div>
+		<script type="text/template" id="opening-template">
+			<div class="view">
+				<input class="toggle" type="checkbox" <%= false ? 'checked' : '' %>>
+				<label><%- artist %></label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="<%- venue %>">
 		</script>
+		
 
 		<script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/underscore/underscore.js"></script>

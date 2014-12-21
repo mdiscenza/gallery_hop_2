@@ -15,7 +15,9 @@ var app = app || {};
 		el: '#todoapp',
 
 		// Our template for the line of statistics at the bottom of the app.
-		statsTemplate: _.template($('#stats-template').html()),
+		//statsTemplate: _.template($('#stats-template').html()),
+		openingTemplate: _.template($('#opening-template').html()),
+
 
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {

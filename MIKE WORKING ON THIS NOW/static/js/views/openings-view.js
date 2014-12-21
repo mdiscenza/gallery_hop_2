@@ -10,7 +10,7 @@ var app = app || {};
     initialize: function(){
         console.log("collection view made");
 
-        this.render();
+        //this.render();
     },
 
     render: function(){
@@ -18,9 +18,9 @@ var app = app || {};
       this.collection.each(function(opening){
         console.log(opening);
         var opening_view =  new app.OpeningView({ model: opening });
-        
-        // this.$el.append(opening_view.render().el);
-      })
+        this.$el.append(opening_view.render().el);
+      }, this);
+      return this;
     }
   });
 })(jQuery);

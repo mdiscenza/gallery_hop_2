@@ -18,6 +18,10 @@ $(function () {
     
     app.openings_view = new app.OpeningsView({collection: collection});
 
+    console.log(app.openings_view);
+    $(document.body).append(app.openings_view.render().el);  
+
+
     for (var i=0; i<response.result.length; i++) {
       //var openingView = new app.OpeningView({ model: response.result[i] });
       // alert(response.result[i].artist);
@@ -37,8 +41,14 @@ $(function () {
   error : function(collection, response) {
     // code here
   }
+
+
   });
 
+
+
 });
+
+
 
 
