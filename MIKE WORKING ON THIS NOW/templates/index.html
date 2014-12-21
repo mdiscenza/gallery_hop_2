@@ -51,7 +51,14 @@
 			<% if (completed) { %>
 			<button id="clear-completed">Clear completed (<%= completed %>)</button>
 			<% } %>
+
+			<script type="text/template" id="opening-template">
+				<div class="view">
+					<label><%- venue %></label>
+					<button class="destroy"></button>
+				</div>
 		</script>
+
 		<script src="bower_components/jquery/jquery.js"></script>
 		<script src="bower_components/underscore/underscore.js"></script>
 		<script src="bower_components/backbone/backbone.js"></script>
