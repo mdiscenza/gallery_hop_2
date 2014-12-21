@@ -75,21 +75,13 @@
 			</div>
 		</script>
 		
-		<script src="js/models/todo.js"></script>
 		<script src="js/models/opening.js"></script>
-		<script src="js/collections/todos.js"></script>
 		<script src="js/collections/openings.js"></script>
-		<script src="js/views/todo-view.js"></script>
 		<script src="js/views/opening-view.js"></script>
 		<script src="js/views/openings-view.js"></script>
 		<script src="js/views/app-view.js"></script>
 		<script src="js/routers/router.js"></script>
 		<script src="js/app.js"></script>
-        <script>
-        $(function(){
-            app.todos.url = '{{ url_for("todo_create") }}';
-            app.todos.reset({{ todos | tojson }});
-        });
-        </script>
+
 	</body>
 </html>

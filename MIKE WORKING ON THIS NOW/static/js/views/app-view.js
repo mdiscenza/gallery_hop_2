@@ -21,7 +21,7 @@ var app = app || {};
 
 		// Delegated events for creating new items, and clearing completed ones.
 		events: {
-			'keypress #new-todo': 'createOnEnter',
+
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`

@@ -16,6 +16,7 @@ var app = app || {};
       event_title: '',
       artist: '',
       date_and_time: '',
+      geo: [0,0],
     },
 
 

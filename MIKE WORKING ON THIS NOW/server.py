@@ -6,7 +6,7 @@ from flask import (
     render_template,
     request)
 
-TODOS = []
+OPENINGS = []
 openings = [
     {'venue':'Cool Art place', 'event_title':"Gnarly Art", 'artist':"Bob the builder", 'date_and_time':"Monday 8:00"},
     {'venue':'Amazing Art place', 'event_title':"Sweet Art", 'artist':"Sally the sculpter", 'date_and_time':"Tuesday 8:00"}
@@ -23,50 +23,50 @@ def get_openings():
 
 @app.route('/')
 def index():
-    todos = filter(None, TODOS)
-    return render_template('index.html', todos=todos, events=openings)
+    openings = filter(None, OPENINGS)
+    return render_template('index.html', openings=openings, events=openings)
 
 
-@app.route('/todos/', methods=['POST'])
-def todo_create():
-    todo = request.get_json()
-    todo['id'] = len(TODOS)
-    TODOS.append(todo)
-    return _todo_response(todo)
+@app.route('/openings/', methods=['POST'])
+def opening_create():
+    opening = request.get_json()
+    opening['id'] = len(OPENINGS)
+    OPENINGS.append(opening)
+    return _opening_response(opening)
 
 
-@app.route('/todos/<int:id>')
-def todo_read(id):
-    todo = _todo_get_or_404(id)
-    return _todo_response(todo)
+@app.route('/openings/<int:id>')
+def opening_read(id):
+    opening = _opening_get_or_404(id)
+    return _opening_response(opening)
 
 
-@app.route('/todos/<int:id>', methods=['PUT', 'PATCH'])
-def todo_update(id):
-    todo = _todo_get_or_404(id)
+@app.route('/openings/<int:id>', methods=['PUT', 'PATCH'])
+def opening_update(id):
+    opening = _opening_get_or_404(id)
     updates = request.get_json()
-    todo.update(updates)
-    return _todo_response(todo)
+    opening.update(updates)
+    return _opening_response(opening)
 
 
-@app.route('/todos/<int:id>', methods=['DELETE'])
-def todo_delete(id):
-    todo = _todo_get_or_404(id)
-    TODOS[id] = None
-    return _todo_response(todo)
+@app.route('/openings/<int:id>', methods=['DELETE'])
+def opening_delete(id):
+    opening = _opening_get_or_404(id)
+    OPENINGS[id] = None
+    return _opening_response(opening)
 
 
-def _todo_get_or_404(id):
-    if not (0 <= id < len(TODOS)):
+def _opening_get_or_404(id):
+    if not (0 <= id < len(OPENINGS)):
         abort(404)
-    todo = TODOS[id]
-    if todo is None:
+    opening = OPENINGS[id]
+    if opening is None:
         abort(404)
-    return todo
+    return opening
 
 
-def _todo_response(todo):
-    return jsonify(**todo)
+def _opening_response(opening):
+    return jsonify(**opening)
 
 
 if __name__ == '__main__':
