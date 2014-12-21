@@ -21,6 +21,7 @@
 
 	</head>
 	<body>
+	{% block body %}
 	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -51,13 +52,44 @@
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      minZoom: 12,
+      minZoom: 2,
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
         'Imagery © <a href="http://mapbox.com">Mapbox</a>',
       id: 'examples.map-i875mjb7'
     }).addTo(map);
 </script>
+
+<script>
+  alert("here");
+  {% for op in events %}
+  try {
+  var text = '<b>{{op.event_title}}</b>'.concat('<br>{{op.gallery}}');
+    L.marker([{{op.coor1}}, {{op.coor2}}]).addTo(map)
+      .bindPopup(text).openPopup();
+  }
+  catch (e){
+    alert("Error");
+  }
+ {% endfor %}
+</script>
+
+
+
+<script>
+
+    var popup = L.popup();
+
+    function onMapClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+
+  </script>
 
 
 
@@ -73,6 +105,7 @@
 				<p><%- venue %></p>
 				<p><%- date_and_time %></p>
 			</div>
+
 		</script>
 		
 		<script src="js/models/opening.js"></script>
@@ -82,6 +115,6 @@
 		<script src="js/views/app-view.js"></script>
 		<script src="js/routers/router.js"></script>
 		<script src="js/app.js"></script>
-
+{% endblock %}
 	</body>
 </html>

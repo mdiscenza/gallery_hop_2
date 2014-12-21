@@ -8,8 +8,8 @@ from flask import (
 
 OPENINGS = []
 openings = [
-    {'venue':'Cool Art place', 'event_title':"Gnarly Art", 'artist':"Bob the builder", 'date_and_time':"Monday 8:00"},
-    {'venue':'Amazing Art place', 'event_title':"Sweet Art", 'artist':"Sally the sculpter", 'date_and_time':"Tuesday 8:00"}
+    {'venue':'Cool Art place', 'event_title':"Gnarly Art", 'artist':"Bob the builder", 'date_and_time':"Monday 8:00", 'coor1':40.7403, 'coor2':-73.9897},
+    {'venue':'Amazing Art place', 'event_title':"Sweet Art", 'artist':"Sally the sculpter", 'date_and_time':"Tuesday 8:00", 'coor1':40.7503, 'coor2':-73.9897}
   ]
 
 app = Flask(__name__, static_url_path='')
@@ -22,9 +22,9 @@ def get_openings():
     
 
 @app.route('/')
-def index():
-    openings = filter(None, OPENINGS)
-    return render_template('index.html', openings=openings, events=openings)
+def index(openings=openings):
+    print(openings)
+    return render_template('index.html', events=openings)
 
 
 @app.route('/openings/', methods=['POST'])
