@@ -21,8 +21,8 @@
 
   {% for op in events %}
   try {
-  var text = '<b>{{op.event_title}}</b>'.concat('<br>{{op.gallery}}');
-    L.marker([{{op.coor1}}, {{op.coor2}}]).addTo(map)
+  var text = '<b>{{op.artist}}</b>'.concat('<br>{{op.gallery}}');
+    L.marker([{{op.lat}}, {{op.long}}]).addTo(map)
       .bindPopup(text).openPopup();
   }
   catch (e){
@@ -58,10 +58,10 @@
 
 		<script type="text/template" id="opening-template">
 			<div class="gallery">
-				<p><%- event_title %></p>
-				<p><%- artist%></p>
-				<p><%- venue %></p>
-				<p><%- date_and_time %></p>
+				<p><%- artist %></p>
+				<p><%- gallery%></p>
+				<p><%- address %></p>
+				<p><%- date %></p>
 			</div>
 
 		</script>
