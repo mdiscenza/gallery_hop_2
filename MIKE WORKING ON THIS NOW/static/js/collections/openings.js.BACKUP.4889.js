@@ -29,10 +29,30 @@ var app = app || {};
   // console.log(app.openings.fetch());
   // console.log(app.openings);
 
+<<<<<<< HEAD
+=======
+  app.openings.fetch({
+  success : function(collection, response) {
+    //console.log(collection);
+    //console.log(response);
+    //console.log(response.result);
 
     for (var i=0; i<response.result.length; i++) {
       //var openingView = new app.OpeningView({ model: response.result[i] });
       alert(response.result[i].artist);
     }
+
+    //resp.each(function(response){
+     // console.log(response);
+      //var openingView = new app.OpeningView({ model: response });
+    //});
+  },
+
+  error : function(collection, response) {
+    // code here
+  }
+  });
+>>>>>>> FETCH_HEAD
+
 
   })();x

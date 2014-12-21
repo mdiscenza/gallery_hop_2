@@ -29,10 +29,25 @@ var app = app || {};
   // console.log(app.openings.fetch());
   // console.log(app.openings);
 
+  app.openings.fetch({
+  success : function(collection, response) {
+    // var resp = response;  
+    console.log(collection);
 
-    for (var i=0; i<response.result.length; i++) {
-      //var openingView = new app.OpeningView({ model: response.result[i] });
-      alert(response.result[i].artist);
-    }
+    // for (var i=0; i<resp.result.length; i++) {
+    //   var openingView = new app.OpeningView({ model: resp.result[i] });
+    //   alert(resp.result[i]);
+    // }
 
-  })();x
+    //resp.each(function(response){
+     // console.log(response);
+      //var openingView = new app.OpeningView({ model: response });
+    //});
+  },
+
+  error : function(collection, response) {
+    // code here
+  }
+  });
+
+  })();

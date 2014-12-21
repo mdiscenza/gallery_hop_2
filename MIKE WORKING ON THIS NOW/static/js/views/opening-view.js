@@ -7,7 +7,7 @@ var app = app || {};
     //... is a list tag.
     tagName:  'div',
 
-    template: _.template( $('#personTemplate').html()),
+    template: _.template($('#personTemplate').html()),
 
     initialize: function(){
         this.opening = model;
@@ -17,6 +17,7 @@ var app = app || {};
     render: function(){
         console.log("rendering opening template")
         this.$el.html( this.template(this.model.toJSON()));
+        return this;
     }
 
 

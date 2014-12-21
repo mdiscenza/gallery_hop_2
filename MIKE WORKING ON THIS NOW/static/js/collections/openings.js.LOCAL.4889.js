@@ -30,9 +30,5 @@ var app = app || {};
   // console.log(app.openings);
 
 
-    for (var i=0; i<response.result.length; i++) {
-      //var openingView = new app.OpeningView({ model: response.result[i] });
-      alert(response.result[i].artist);
-    }
 
   })();x
