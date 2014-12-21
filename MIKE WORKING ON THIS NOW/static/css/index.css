@@ -1,0 +1,17 @@
+
+div#map{
+	width: 100%; 
+	height: 500px; 
+	right:0; 
+	left:0;
+	margin: 0 auto;
+}
+
+div#gh{
+	margin: 0 auto;
+}
+
+div#form{
+	width:50%;
+	margin: 0 auto;
+}
