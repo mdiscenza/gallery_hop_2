@@ -13,9 +13,16 @@ div#gh{
   text-align: left;
   height: 500px;
   overflow: scroll;
+  padding-left:10px;
 }
 
 div#form{
 	width:50%;
 	margin: 0 auto;
 }
+
+div.gallery:hover{
+	background-color: #ddd;
+}
+
+
