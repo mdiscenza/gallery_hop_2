@@ -10,16 +10,17 @@ var app = app || {};
     model: app.Opening,
     url: '/openings',
 
-    // parse: function(response){
-    //     console.log("parse called")
-    //     return response.collection;
-    // }
-    render: function(){
-      this.collection.each(function(opening){
-          var openingView = new app.OpeningView({ model: opening });
-          this.$el.append(openingView.el);
-      }, this);
-  }
+    parse: function(response){
+        console.log("parse called")
+        return response.collection;
+    }
+
+  //   render: function(){
+  //     this.collection.each(function(opening){
+  //         var openingView = new app.OpeningView({ model: opening });
+  //         this.$el.append(openingView.el);
+  //     }, this);
+  // }
 
 
   });
@@ -31,10 +32,11 @@ var app = app || {};
 
   app.openings.fetch({
   success : function(collection, response) {
-    console.log(response);
-    response.each( function (opening){
-      console.log(opening)
-      var openingView = new app.OpeningView({ model: opening });
+    var resp = response;
+    console.log(resp);
+    resp.each(function(response){
+      console.log(response)
+      var openingView = new app.OpeningView({ model: response });
     })
   },
 
