@@ -6,11 +6,43 @@ from flask import (
     render_template,
     request)
 
+import mysql.connector
+from geopy.geocoders import Nominatim
+
+cnx = mysql.connector.connect(user='galleryhop', password='galleryhop', host='galleryhop2.crflf9mu2uwj.us-east-1.rds.amazonaws.com',database='galleryhop2')
+
+cursor = cnx.cursor()
+
+cursor.execute("""select * from galleries""")
+
+geolocator = Nominatim()
+
+openings = []
+
+#Get list of JSON openings
+for row in cursor:
+        try:
+                location = geolocator.geocode(row[5]+' NYC')
+                lat = location.latitude
+                long = location.longitude
+
+                dict = {"artist":row[0],
+                "date":row[1],
+                "start_time":row[2],
+                "end_time":row[3],
+                "gallery":row[4],
+                "address":row[5],
+                "neighborhood":row[6],
+                "end_date":row[7],
+                "lat":lat,
+                "long":long
+                }
+
+                openings.append(dict)
+        except:
+                print ''
+
 OPENINGS = []
-openings = [
-    {'venue':'Cool Art place', 'event_title':"Gnarly Art", 'artist':"Bob the builder", 'date_and_time':"Monday 8:00", 'coor1':40.7403, 'coor2':-73.9897},
-    {'venue':'Amazing Art place', 'event_title':"Sweet Art", 'artist':"Sally the sculpter", 'date_and_time':"Tuesday 8:00", 'coor1':40.7503, 'coor2':-73.9897}
-  ]
 
 app = Flask(__name__, static_url_path='')
 app.debug = True
