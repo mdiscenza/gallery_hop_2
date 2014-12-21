@@ -3,22 +3,21 @@ var app = app || {};
 
 (function ($) {
   'use strict';
-
-  
   app.OpeningView = Backbone.View.extend({
     //... is a list tag.
     tagName:  'div',
 
-  template: _.template( $('#personTemplate').html()),
+    template: _.template( $('#personTemplate').html()),
 
-  initialize: function(){
-      this.render();
-  },
+    initialize: function(){
+        this.opening = model;
+        console.log("opening view created!")
+    },
 
-  render: function(){
-      console.log("rendering opening template")
-      this.$el.html( this.template(this.model.toJSON()));
-  }
+    render: function(){
+        console.log("rendering opening template")
+        this.$el.html( this.template(this.model.toJSON()));
+    }
 
 
 

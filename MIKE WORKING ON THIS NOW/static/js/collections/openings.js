@@ -11,8 +11,7 @@ var app = app || {};
     url: '/openings',
 
     parse: function(response){
-        console.log("parse called")
-        return response.collection;
+        return response.result;
     }
 
   //   render: function(){
@@ -32,13 +31,13 @@ var app = app || {};
 
   app.openings.fetch({
   success : function(collection, response) {
-    var resp = response;
-    console.log(resp);
+    // var resp = response;  
+    console.log(collection);
 
-    for (var i=0; i<resp.result.length; i++) {
-
-     alert(resp.result[i]);
-    }
+    // for (var i=0; i<resp.result.length; i++) {
+    //   var openingView = new app.OpeningView({ model: resp.result[i] });
+    //   alert(resp.result[i]);
+    // }
 
     //resp.each(function(response){
      // console.log(response);
