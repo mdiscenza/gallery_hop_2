@@ -5,7 +5,7 @@ var app = app || {};
   'use strict';
    app.OpeningView = Backbone.View.extend({
     //... is a list tag.
-    tagName:  'div',
+    tagName:  'li',
 
 
      // template: _.template($('#opening-template').html()),

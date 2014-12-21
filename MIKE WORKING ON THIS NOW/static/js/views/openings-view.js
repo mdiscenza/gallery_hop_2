@@ -5,7 +5,7 @@ var app = app || {};
   'use strict';
 
   app.OpeningsView = Backbone.View.extend({
-    tagName: 'ul',
+    tagName: 'ul id="todo-list"',
 
     initialize: function(){
         console.log("collection view made");

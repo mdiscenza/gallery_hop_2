@@ -19,7 +19,7 @@ $(function () {
     app.openings_view = new app.OpeningsView({collection: collection});
 
     console.log(app.openings_view);
-    $(document.body).append(app.openings_view.render().el);  
+    $("#todoapp").append(app.openings_view.render().el);  
 
 
     for (var i=0; i<response.result.length; i++) {
