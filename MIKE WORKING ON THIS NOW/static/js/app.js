@@ -15,7 +15,13 @@ $(function () {
   success : function(collection, response) {
     // var resp = response;  
     console.log(collection);
-    app.openings_view = new app.OpeningsView;
+    
+    app.openings_view = new app.OpeningsView({collection: collection});
+
+    for (var i=0; i<response.result.length; i++) {
+      //var openingView = new app.OpeningView({ model: response.result[i] });
+      // alert(response.result[i].artist);
+    }
 
     // for (var i=0; i<resp.result.length; i++) {
     //   var openingView = new app.OpeningView({ model: resp.result[i] });

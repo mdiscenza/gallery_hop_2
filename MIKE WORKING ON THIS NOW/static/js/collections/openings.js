@@ -27,12 +27,8 @@ var app = app || {};
   // Create our global collection of **Todos**.
   app.openings = new Openings();
   // console.log(app.openings.fetch());
-  // console.log(app.openings);
+  // console.log(app.openings);`
 
 
-    for (var i=0; i<response.result.length; i++) {
-      //var openingView = new app.OpeningView({ model: response.result[i] });
-      alert(response.result[i].artist);
-    }
 
-  })();x
+  })();
