@@ -1,12 +1,18 @@
-var OpeningsView = Backbone.View.extend({
-  tagName: 'ul',
+/*global Backbone */
+var app = app || {};
 
-  initialize: function(){
-      console.log(this.collection);
-  },
+(function () {
+  'use strict';
 
-  render: function(){
-    this.collection.each(function(opening){
-            console.log(opening);
-  });
+  var app.OpeningsView = Backbone.View.extend({
+    tagName: 'ul',
+
+    initialize: function(){
+        console.log(this.collection);
+    },
+
+    render: function(){
+      this.collection.each(function(opening){
+              console.log(opening);
+    });
 }});
