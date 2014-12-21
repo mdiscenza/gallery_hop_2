@@ -34,10 +34,16 @@ var app = app || {};
   success : function(collection, response) {
     var resp = response;
     console.log(resp);
-    resp.each(function(response){
-      console.log(response)
-      var openingView = new app.OpeningView({ model: response });
-    })
+
+    for (var i=0; i<resp.result.length; i++) {
+
+     alert(resp.result[i]);
+    }
+
+    //resp.each(function(response){
+     // console.log(response);
+      //var openingView = new app.OpeningView({ model: response });
+    //});
   },
 
   error : function(collection, response) {
