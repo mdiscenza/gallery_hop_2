@@ -19,12 +19,17 @@ app.debug = True
 @app.route('/openings')
 def get_openings():
     return(jsonify(result=openings))
-    
+
 
 @app.route('/')
 def index(openings=openings):
     print(openings)
     return render_template('index.html', events=openings)
+
+
+@app.route('/form')
+def form():
+    return render_template('form.html')
 
 
 @app.route('/openings/', methods=['POST'])
