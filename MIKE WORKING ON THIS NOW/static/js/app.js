@@ -14,11 +14,11 @@ $(function () {
   app.openings.fetch({
   success : function(collection, response) {
     // var resp = response;  
-    console.log(collection);
+    // console.log(collection);
     
     app.openings_view = new app.OpeningsView({collection: collection});
 
-    console.log(app.openings_view);
+    
     $("#gh").append(app.openings_view.render().el);  
 
 
