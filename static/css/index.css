@@ -1,6 +1,6 @@
 
 div#map{
-	width: 60%; 
+	width: 70%; 
 	height: 500px; 
 	right:0; 
 	left:0;
@@ -9,7 +9,7 @@ div#map{
 
 div#gh{
   float: right;
-  width: 40%;
+  width: 30%;
   text-align: left;
   height: 500px;
   overflow: scroll;
@@ -28,12 +28,32 @@ div.gallery{
 
 }
 
+div.gallery{
+  background-color: #ECF0F1 ;
+  border-radius: 5px;
+  padding-top: 4px;
+  border-width-left:10px;   
+
+}
+
 div.gallery:hover{
-	background-color: #dedede;
+	background-color: #BDC3C7;
 }
 
 div.gallery-container{
-  padding-left:10px;
+  padding: 5px;
+  line-height: 0.5;
+
 }
 
+h5{
+  margin: 0;  
+}
 
+h4{
+  margin: 0;  
+}
+
+p{
+  margin: 0;  
+}
