@@ -21,8 +21,19 @@ div#form{
 	margin: 0 auto;
 }
 
+div.gallery{
+
+  border-left: solid;
+  border-color: #939393;
+
+}
+
 div.gallery:hover{
-	background-color: #ddd;
+	background-color: #dedede;
+}
+
+div.gallery-container{
+  padding-left:10px;
 }
 
 

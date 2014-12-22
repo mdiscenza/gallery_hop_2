@@ -5,7 +5,7 @@
   <script>
 
 
-    var map = L.map('map').setView([40.7403, -73.9897], 13);
+    var map = L.map('map').setView([40.7403, -73.9897], 12);
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -58,10 +58,12 @@
 
 		<script type="text/template" id="opening-template">
 			<div class="gallery">
-				<h4><%- artist %></h4>
-				<h5><%- gallery%></h5>
-				<p><%- address %></p>
-				<p><%- date %></p>
+				<div class="gallery-container">
+					<h4><%- artist %></h4>
+					<h5><%- gallery%></h5>
+					<p><%- address %></p>
+					<p><%- date %></p>
+				</div>
 			</div>
 
 		</script>
