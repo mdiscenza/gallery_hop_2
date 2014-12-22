@@ -46,6 +46,7 @@ OPENINGS = []
 
 app = Flask(__name__, static_url_path='')
 app.debug = True
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 
 @app.route('/openings')
@@ -59,9 +60,37 @@ def index(openings=openings):
     return render_template('index.html', events=openings)
 
 
-@app.route('/form')
+@app.route('/form', methods=['POST', 'GET'])
 def form():
-    return render_template('form.html')
+    if(request.method == 'POST'):
+        #submit to db
+        artist = request.form['artist']
+        date  = request.form['dp1']
+        start_time = request.form['tp1']
+        end_time = request.form['tp2']
+        gallery = request.form['gallery']
+        address = request.form['address']
+        neighborhood = request.form['nbhd']
+        end_date = request.form['dp2']
+        print request.form
+
+        AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY')
+        AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY')
+        S3_BUCKET = "what is the name"
+        object_name = request.args.get('s3_object_name')
+        mime_type = request.args.get('s3_object_type')
+        expires = long(time.time()+10)
+        amz_headers = "x-amz-acl:public-read"
+        put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
+        signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
+        signature = urllib.quote_plus(signature.strip())
+
+        url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
+
+
+        return render_template('form.html')
+    else:
+        return render_template('form.html')
 
 
 @app.route('/openings/', methods=['POST'])

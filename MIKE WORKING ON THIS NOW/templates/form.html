@@ -25,50 +25,32 @@
 
 <div id="form">
 <h2>Submit Gallery Opening</h2>
-<form>
-    <div class="form-group">
-        <label for="event">Event Name</label>
-        <input type="text" class="form-control" id="event" placeholder="Event Name">
-    </div>
+<form action="/form" onSubmit="return validateForm()" method="POST">
     <div class="form-group">
         <label for="artist">Artist Name</label>
-        <input type="text" class="form-control" id="artist" placeholder="Artist Name">
-    </div>
-    <div class="form-group">
+        <input type="text" class="form-control" name="artist" id="artist" placeholder="Artist Name" required>
         <label for="gallery">Gallery</label>
-        <input type="text" class="form-control" id="gallery" placeholder="Gallery Name">
-    </div>
-    <div class="form-group">
+        <input type="text" class="form-control" name="gallery" id="gallery" placeholder="Gallery Name" required>
       <label for="address">Address</label>
-      <input type="text" class="form-control" id="gallery" placeholder="Address">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
+        <label for="nbhd">Neighborhood</label>
+        <input type="text" class="form-control" name="nbhd" id="nbhd" placeholder="Neighborhood" required>
       <label for="startDate">Start Date</label>
-      <input type="text" class="form-control datepicker" id="dp1" placeholder="Start Date">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control datepicker" name="dp1" id="dp1" placeholder="Start Date" required>
       <label for="startTime">Start Time</label>
-      <input type="text" class="form-control timepicker" id="tp1" placeholder="Start Time">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control timepicker" name="tp1" id="tp1" placeholder="Start Time" required>
       <label for="endDate">End Date</label>
-      <input type="text" class="form-control datepicker" id="dp2" placeholder="End date">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control datepicker" name="dp2" id="dp2" placeholder="End date" required>
       <label for="endTime">End Time</label>
-      <input type="text" class="form-control timepicker" id="tp2" placeholder="End Time">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control timepicker" name="tp2" id="tp2" placeholder="End Time" required>
       <label for="p1">Event Photo</label>
-      <input type="file" class="form-control" id="p1">
-    </div>
-    <div class="form-group">
+      <input type="file" class="form-control" name="p1" id="p1">
       <label for="p2">Additional Event Photos</label>
-      <input type="file" class="form-control" id="p2">
+      <input type="file" class="form-control" name="p2" id="p2">
       <label for="p3"></label>
-      <input type="file" class="form-control" id="p3">
-    </div>
+      <input type="file" class="form-control" name="p3" id="p3">
     <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
+    </div>
 </form>
 </div>
 {% endblock %}

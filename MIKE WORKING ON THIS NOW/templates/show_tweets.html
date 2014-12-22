@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <style type="text/css">
+#map
+{
+ width: 700px ;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+#buttons
+{
+  width: 300px ;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+</style>
+
+
+<div id = "buttons">
+<a href = "/links"><button type="button" class="btn btn-default">Links</button></a>
+<a href = "/non"><button type="button" class="btn btn-default">Non Links</button></a>
+<a href = "/"><button type="button" class="btn btn-default">All</button></a>
+</div>
+
+  <div id="map" style="width: 600px; height: 400px"></div>
+
+  <script>
+
+
+    var map = L.map('map').setView([38.833, -96], 4);
+
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'examples.map-i875mjb7'
+    }).addTo(map);
+</script>
+
+
+<script>
+  {% for tweet in openings %}
+  try {
+  var text = '<b>{{tweet.event_title}}</b>'.concat('<br>{{tweet.hours_since}} hours ago');
+    L.marker([{{tweet.coor2}}, {{tweet.coor1}}]).addTo(map)
+      .bindPopup(text).openPopup();
+  }
+  catch (e){
+    alert("Error");
+  }
+ {% endfor %}
+</script>
+
+
+
+<script>
+
+    var popup = L.popup();
+
+    function onMapClick(e) {
+      popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString())
+        .openOn(map);
+    }
+
+    map.on('click', onMapClick);
+
+  </script>
+
+</br>
+</br>
+
+<!--
+  {% for tweet in tweets %}
+  <table class="fixed">
+    <col width="20px" />
+    <col width="200px" />
+    <col width="75px" />
+    <col width="150px" />
+    <col width="250px" />
+     <tr> 
+     {{ tweet.text }}
+    </tr>
+    {% endfor %}
+    -->
+{% endblock %}
