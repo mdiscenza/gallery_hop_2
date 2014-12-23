@@ -21,7 +21,7 @@
 
   {% for op in events %}
   try {
-  var text = '<b>{{op.artist}}</b>'.concat('<br>{{op.gallery}}');
+  var text = '<b>{{op.artist}}</b>'.concat('<br>{{op.gallery}} <img class="small_img" src="https://s3.amazonaws.com/galleryhop/{{op.artist.replace(" ", "_")}}.jpg" alt="" height="42" width="42">');
     L.marker([{{op.lat}}, {{op.long}}]).addTo(map)
       .bindPopup(text).openPopup();
   }
