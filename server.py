@@ -32,9 +32,9 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 openings=[]
 cursor = cnx.cursor()
 cursor.execute("""select * from galleries_formatted where start_date > 20141222 order by start_date asc""") 
-t = date.today()
-cutoff = str(t.year) + str(t.month) + str(t.day)
-openings_new = []
+# t = date.today()
+# cutoff = str(t.year) + str(t.month) + str(t.day)
+openings = []
 #Get list of JSON openings
 for row in cursor:
     try:
@@ -44,38 +44,6 @@ for row in cursor:
                     # "date":humanize.naturalday(datetime.date(row[1][:4], row[1][4:6], row[1][6:])),
 
         dict = {"artist":row[0],
-        "date": row[1],
-        "start_time": "6:00",
-        "end_time":row[3],
-        "gallery":row[4],
-        "address":row[5],
-        "neighborhood":row[6],
-        "end_date":row[7],
-        "lat":lat,
-        "long":long
-        }
-        openings.append(dict)
-    except:
-       print 'table row not read'
-
-    print openings
-
-def get_most_recent_upcoming_events():
-    global openings
-    cursor = cnx.cursor()
-    cursor.execute("""select * from galleries_formatted where start_date > 20141222 order by start_date asc""") 
-    t = date.today()
-    cutoff = str(t.year) + str(t.month) + str(t.day)
-    openings_new = []
-    #Get list of JSON openings
-    for row in cursor:
-        try:
-            location = geolocator.geocode(row[5]+' NYC')
-            lat = location.latitude
-            long = location.longitude
-                        # "date":humanize.naturalday(datetime.date(row[1][:4], row[1][4:6], row[1][6:])),
-
-            dict = {"artist":row[0],
             "date": row[1],
             "start_time": "6:00",
             "end_time":row[3],
@@ -85,11 +53,43 @@ def get_most_recent_upcoming_events():
             "end_date":row[7],
             "lat":lat,
             "long":long
-            }
-            openings.append(dict)
-        except:
-           print 'table row not read'
-    openings = openings_new
+        }
+        openings.append(dict)
+    except:
+       print 'table row not read'
+
+    print openings
+
+# def get_most_recent_upcoming_events():
+#     global openings
+#     cursor = cnx.cursor()
+#     cursor.execute("""select * from galleries_formatted where start_date > 20141222 order by start_date asc""") 
+#     t = date.today()
+#     cutoff = str(t.year) + str(t.month) + str(t.day)
+#     openings_new = []
+#     #Get list of JSON openings
+#     for row in cursor:
+#         try:
+#             location = geolocator.geocode(row[5]+' NYC')
+#             lat = location.latitude
+#             long = location.longitude
+#                         # "date":humanize.naturalday(datetime.date(row[1][:4], row[1][4:6], row[1][6:])),
+
+#             dict = {"artist":row[0],
+#             "date": row[1],
+#             "start_time": "6:00",
+#             "end_time":row[3],
+#             "gallery":row[4],
+#             "address":row[5],
+#             "neighborhood":row[6],
+#             "end_date":row[7],
+#             "lat":lat,
+#             "long":long
+#             }
+#             openings.append(dict)
+#         except:
+#            print 'table row not read'
+#     openings = openings_new
 
 
 
