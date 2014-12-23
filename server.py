@@ -12,59 +12,96 @@ from geopy.geocoders import Nominatim
 from hashlib import sha1
 import time, os, json, base64, hmac, urllib
 from werkzeug import secure_filename
+from datetime import date
+import humanize
 
 UPLOAD_FOLDER = './photos/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 cnx = mysql.connector.connect(user='galleryhop', password='galleryhop', host='galleryhop2.crflf9mu2uwj.us-east-1.rds.amazonaws.com',database='galleryhop2')
 
-cursor = cnx.cursor()
-
-cursor.execute("""select * from galleries""")
 
 geolocator = Nominatim()
 
-openings = []
 
-#Get list of JSON openings
-for row in cursor:
-        try:
-                location = geolocator.geocode(row[5]+' NYC')
-                lat = location.latitude
-                long = location.longitude
-
-                dict = {"artist":row[0],
-                "date":row[1],
-                "start_time":row[2],
-                "end_time":row[3],
-                "gallery":row[4],
-                "address":row[5],
-                "neighborhood":row[6],
-                "end_date":row[7],
-                "lat":lat,
-                "long":long
-                }
-
-                openings.append(dict)
-        except:
-                print ''
-
-OPENINGS = []
 
 app = Flask(__name__, static_url_path='')
 app.debug = True
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+openings=[]
+cursor = cnx.cursor()
+cursor.execute("""select * from galleries_formatted where start_date > 20141222 order by start_date asc""") 
+t = date.today()
+cutoff = str(t.year) + str(t.month) + str(t.day)
+openings_new = []
+#Get list of JSON openings
+for row in cursor:
+    try:
+        location = geolocator.geocode(row[5]+' NYC')
+        lat = location.latitude
+        long = location.longitude
+                    # "date":humanize.naturalday(datetime.date(row[1][:4], row[1][4:6], row[1][6:])),
+
+        dict = {"artist":row[0],
+        "date": row[1],
+        "start_time": "6:00",
+        "end_time":row[3],
+        "gallery":row[4],
+        "address":row[5],
+        "neighborhood":row[6],
+        "end_date":row[7],
+        "lat":lat,
+        "long":long
+        }
+        openings.append(dict)
+    except:
+       print 'table row not read'
+
+    print openings
+
+def get_most_recent_upcoming_events():
+    global openings
+    cursor = cnx.cursor()
+    cursor.execute("""select * from galleries_formatted where start_date > 20141222 order by start_date asc""") 
+    t = date.today()
+    cutoff = str(t.year) + str(t.month) + str(t.day)
+    openings_new = []
+    #Get list of JSON openings
+    for row in cursor:
+        try:
+            location = geolocator.geocode(row[5]+' NYC')
+            lat = location.latitude
+            long = location.longitude
+                        # "date":humanize.naturalday(datetime.date(row[1][:4], row[1][4:6], row[1][6:])),
+
+            dict = {"artist":row[0],
+            "date": row[1],
+            "start_time": "6:00",
+            "end_time":row[3],
+            "gallery":row[4],
+            "address":row[5],
+            "neighborhood":row[6],
+            "end_date":row[7],
+            "lat":lat,
+            "long":long
+            }
+            openings.append(dict)
+        except:
+           print 'table row not read'
+    openings = openings_new
+
 
 
 @app.route('/openings')
 def get_openings():
+    global openings
     return(jsonify(result=openings))
 
 
 @app.route('/')
-def index(openings=openings):
-    #print(openings)
+def index():
+    global openings
     return render_template('index.html', events=openings)
 
 
