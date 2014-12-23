@@ -7,7 +7,7 @@ cnx = mysql.connector.connect(user='galleryhop', password='galleryhop', host='ga
 
 cursor = cnx.cursor()
 
-t = """CREATE TABLE galleries_formatted_4(
+t = """CREATE TABLE galleries_lat_long_4(
 shows	VARCHAR(50),
 start_date	VARCHAR(50),
 start	VARCHAR(50),
@@ -26,7 +26,7 @@ f = open('data/galleries_table_lat_long.csv','rU')
 csv_f = csv.reader(f)
 
 for row in csv_f:
-	stmt = "INSERT INTO galleries_formatted_4 (shows,start_date,start,end,gallery,address,nbhood,end_date,lat,lng) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+	stmt = "INSERT INTO galleries_lat_long_4 (shows,start_date,start,end,gallery,address,nbhood,end_date,lat,long) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
 	cursor.execute(stmt,row)
 	cnx.commit()
 
