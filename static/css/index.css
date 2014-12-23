@@ -21,18 +21,15 @@ div#form{
 	margin: 0 auto;
 }
 
-div.gallery{
 
-  border-left: solid;
-  border-color: #939393;
-
-}
 
 div.gallery{
   background-color: #ECF0F1 ;
   border-radius: 5px;
-  padding-top: 4px;
   border-width-left:10px;   
+  border-left: solid;
+  border-color: #939393;
+  margin: 4px;
 
 }
 
@@ -41,7 +38,7 @@ div.gallery:hover{
 }
 
 div.gallery-container{
-  padding: 5px;
+  padding:2px;
   line-height: 0.5;
 
 }
@@ -56,4 +53,12 @@ h4{
 
 p{
   margin: 0;  
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif;
+}
+p, div {
+    font-family: 'Lato', sans-serif;
 }
