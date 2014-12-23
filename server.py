@@ -9,6 +9,8 @@ from flask import (
 import mysql.connector
 import tinys3
 from geopy.geocoders import Nominatim
+from hashlib import sha1
+import time, os, json, base64, hmac, urllib
 
 cnx = mysql.connector.connect(user='galleryhop', password='galleryhop', host='galleryhop2.crflf9mu2uwj.us-east-1.rds.amazonaws.com',database='galleryhop2')
 
@@ -84,20 +86,29 @@ def form():
         if('p3' in request.form):
             files.append(request.form['p3'])
 
-
+        AWS_ACCESS_KEY = ""
+        AWS_SECRET_KEY = ""
+        S3_BUCKET = "galleryhop"
         conn = tinys3.Connection(AWS_ACCESS_KEY,AWS_SECRET_KEY)
 
         url_list = []
 
         for f in files:
-            curr = open(f)
-            try:
-                conn.upload(f,curr,'galleryhop')
-            except:
-                files.remove(f)
-        for f in files:
-            curr = 'https://s3.amazonaws.com/galleryhop/'+f
-            url_list.append(curr)
+            object_name = f.encode('ascii','ignore')
+            mime_type = "" #TODODODDODODODODODODODOODDODOODODODODODODODODODODODO
+
+            expires = time.time()+10
+            amz_headers = "x-amz-acl:public-read"
+
+            put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
+
+            signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
+            signature = urllib.quote_plus(signature.strip())
+            print signature
+
+            url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
+            url_list.append(url)
+
 
         print url_list
 
