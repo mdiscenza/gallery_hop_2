@@ -22,10 +22,9 @@
 });
 </script>
 
-
 <div id="form">
 <h2>Submit Gallery Opening</h2>
-<form action="/form" onSubmit="return validateForm()" method="POST">
+<form enctype=multipart/form-data action="/form" onSubmit="return validateForm()" method="POST">
     <div class="form-group">
         <label for="artist">Artist Name</label>
         <input type="text" class="form-control" name="artist" id="artist" placeholder="Artist Name" required>
@@ -45,12 +44,13 @@
       <input type="text" class="form-control timepicker" name="tp2" id="tp2" placeholder="End Time" required>
       <label for="p1">Event Photo</label>
       <input type="file" class="form-control" name="p1" id="p1">
-      <label for="p2">Additional Event Photos</label>
+      <!--label for="p2">Additional Event Photos</label>
       <input type="file" class="form-control" name="p2" id="p2">
       <label for="p3"></label>
-      <input type="file" class="form-control" name="p3" id="p3">
+      <input type="file" class="form-control" name="p3" id="p3"-->
     <button type="submit" style="float:right;" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
 </div>
 {% endblock %}

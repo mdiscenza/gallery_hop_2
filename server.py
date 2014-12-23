@@ -11,6 +11,10 @@ import tinys3
 from geopy.geocoders import Nominatim
 from hashlib import sha1
 import time, os, json, base64, hmac, urllib
+from werkzeug import secure_filename
+
+UPLOAD_FOLDER = './photos/'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 cnx = mysql.connector.connect(user='galleryhop', password='galleryhop', host='galleryhop2.crflf9mu2uwj.us-east-1.rds.amazonaws.com',database='galleryhop2')
 
@@ -50,6 +54,7 @@ OPENINGS = []
 app = Flask(__name__, static_url_path='')
 app.debug = True
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/openings')
@@ -59,7 +64,7 @@ def get_openings():
 
 @app.route('/')
 def index(openings=openings):
-    print(openings)
+    #print(openings)
     return render_template('index.html', events=openings)
 
 
@@ -78,37 +83,27 @@ def form():
 
         #Add to DB
 
-        files = []
-        if('p1' in request.form):
-            files.append(request.form['p1'])
-        if('p2' in request.form):
-            files.append(request.form['p2'])
-        if('p3' in request.form):
-            files.append(request.form['p3'])
+        files = ['p1','p2','p3']
 
         AWS_ACCESS_KEY = ""
         AWS_SECRET_KEY = ""
-        S3_BUCKET = "galleryhop"
-        conn = tinys3.Connection(AWS_ACCESS_KEY,AWS_SECRET_KEY)
+
+        conn = tinys3.Connection(AWS_ACCESS_KEY,AWS_SECRET_KEY,tls=True,endpoint="s3-us-west-1.amazonaws.com")
 
         url_list = []
 
         for f in files:
-            object_name = f.encode('ascii','ignore')
-            mime_type = "" #TODODODDODODODODODODODOODDODOODODODODODODODODODODODO
-
-            expires = time.time()+10
-            amz_headers = "x-amz-acl:public-read"
-
-            put_request = "PUT\n\n%s\n%d\n%s\n/%s/%s" % (mime_type, expires, amz_headers, S3_BUCKET, object_name)
-
-            signature = base64.encodestring(hmac.new(AWS_SECRET_KEY, put_request, sha1).digest())
-            signature = urllib.quote_plus(signature.strip())
-            print signature
-
-            url = 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, object_name)
-            url_list.append(url)
-
+            try:
+                file = request.files[f]
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'rb')
+                    conn.upload(os.path.join(app.config['UPLOAD_FOLDER'], filename),f,'galleryhop')
+                    tmp = 'https://s3.amazonaws.com/galleryhop/'+filename
+                    url_list.append(tmp)
+            except:
+                print "not a file"
 
         print url_list
 
@@ -118,6 +113,9 @@ def form():
     else:
         return render_template('form.html')
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/openings/', methods=['POST'])
 def opening_create():
